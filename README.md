@@ -40,13 +40,16 @@ sudo mysql
 CREATE DATABASE druid DEFAULT CHARACTER SET utf8;
 CREATE USER 'druid'@'localhost' IDENTIFIED BY 'druid';
 GRANT ALL ON druid.* TO 'druid'@'localhost';
-
-CREATE USER 'druid'@'172.31.20.23' IDENTIFIED BY 'druid';
-GRANT ALL ON druid.* TO 'druid'@'172.31.20.23';
+```
+> below need to be down for both overlord and coordinator hosts
+```
+CREATE USER 'druid'@'overlord hostname' IDENTIFIED BY 'druid';
+GRANT ALL ON druid.* TO 'druid'@'overlord hostname';
 \q
 mysql -u druid -pdruid -D druid
 \q
 ```
+> add mysql configs, then restar:
 ```
 vi /etc/mysql/my.conf
 bind_address: 0.0.0.0
@@ -57,9 +60,11 @@ collation-server=utf8_unicode_ci
 skip-character-set-client-handshake
 show_compatibility_56 = on
 ```
-
+> nice to have on mysql node
+```
 echo "overlord hostname" >> /etc/hosts
 echo "coordinator hostname" >> /etc/hosts
+```
 
 * install druid:
 ```
@@ -68,17 +73,9 @@ wget http://static.druid.io/artifacts/releases/druid-0.8.3-bin.tar.gz
 tar xzf druid-0.8.3-bin.tar.gz
 cd druid-0.8.3/lib/
 wget http://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/sigar-1.6.4.jar
-
-mkdir /mnt/druid
-for mysql:
-druid.extensions.coordinates=[\"io.druid.extensions:mysql-metadata-storage"]
-druid.metadata.storage.type=mysql
-druid.metadata.storage.connector.createTables=true
-druid.metadata.storage.connector.connectURI=jdbc:mysql://localhost:3306/druid?characterEncoding=UTF-8
-druid.metadata.storage.connector.user=druid
-druid.metadata.storage.connector.password=druid
-druid.extensions.searchCurrentClassloader=true
-
+```
+> start individual servers with following command
+```
 /opt/druid-0.8.3/run_druid_server.sh overlord
 ..
 ..
