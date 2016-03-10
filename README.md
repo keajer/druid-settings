@@ -1,6 +1,6 @@
 ## Druid Installation:
 
-* #install java:
+* install java:
 ```
 cd /opt
 wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz"
@@ -17,7 +17,7 @@ echo "export JRE_HOME=/opt/jdk1.8.0_73/jre" >> /root/.bashrc
 echo "export PATH=\$PATH:/opt/jdk1.8.0_73/bin:/opt/jdk1.8.0_73/jre/bin" >> /root/.bashrc
 source /root/.bashrc
 ```
-* #install zookeeper:
+* install zookeeper:
 ```
 cd /opt
 curl http://www.gtlib.gatech.edu/pub/apache/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz -o zookeeper-3.4.8.tar.gz
@@ -27,7 +27,7 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
 ./bin/zkServer.sh start
 ```
 
-* #install mysql
+* install mysql
 ```
 cd /tmp
 wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
@@ -69,7 +69,11 @@ echo "overlord hostname" >> /etc/hosts
 echo "coordinator hostname" >> /etc/hosts
 ```
 
-* #install druid:
+* install memcached:
+> this is skipped for now
+
+
+* install druid:
 ```
 cd /opt
 wget http://static.druid.io/artifacts/releases/druid-0.8.3-bin.tar.gz
