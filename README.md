@@ -1,6 +1,6 @@
-### Druid Installation:
+## Druid Installation:
 
-* install java:
+* #install java:
 ```
 cd /opt
 wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz"
@@ -17,7 +17,7 @@ echo "export JRE_HOME=/opt/jdk1.8.0_73/jre" >> /root/.bashrc
 echo "export PATH=\$PATH:/opt/jdk1.8.0_73/bin:/opt/jdk1.8.0_73/jre/bin" >> /root/.bashrc
 source /root/.bashrc
 ```
-* install zookeeper:
+* #install zookeeper:
 ```
 cd /opt
 curl http://www.gtlib.gatech.edu/pub/apache/zookeeper/zookeeper-3.4.8/zookeeper-3.4.8.tar.gz -o zookeeper-3.4.8.tar.gz
@@ -27,7 +27,7 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
 ./bin/zkServer.sh start
 ```
 
-* install mysql
+* #install mysql
 ```
 cd /tmp
 wget http://dev.mysql.com/get/mysql-apt-config_0.6.0-1_all.deb
@@ -42,6 +42,7 @@ CREATE USER 'druid'@'localhost' IDENTIFIED BY 'druid';
 GRANT ALL ON druid.* TO 'druid'@'localhost';
 ```
 > below need to be down for both overlord and coordinator hosts
+
 ```
 CREATE USER 'druid'@'overlord hostname' IDENTIFIED BY 'druid';
 GRANT ALL ON druid.* TO 'druid'@'overlord hostname';
@@ -50,6 +51,7 @@ mysql -u druid -pdruid -D druid
 \q
 ```
 > add mysql configs, then restar:
+
 ```
 vi /etc/mysql/my.conf
 bind_address: 0.0.0.0
@@ -61,12 +63,13 @@ skip-character-set-client-handshake
 show_compatibility_56 = on
 ```
 > nice to have on mysql node
+
 ```
 echo "overlord hostname" >> /etc/hosts
 echo "coordinator hostname" >> /etc/hosts
 ```
 
-* install druid:
+* #install druid:
 ```
 cd /opt
 wget http://static.druid.io/artifacts/releases/druid-0.8.3-bin.tar.gz
@@ -75,6 +78,7 @@ cd druid-0.8.3/lib/
 wget http://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/sigar-1.6.4.jar
 ```
 > start individual servers with following command
+
 ```
 /opt/druid-0.8.3/run_druid_server.sh overlord
 ..
